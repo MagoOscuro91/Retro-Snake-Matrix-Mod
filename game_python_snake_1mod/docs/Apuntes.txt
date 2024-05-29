@@ -1,0 +1,221 @@
+                                ### Apuntes ###
+
+                    #1# Installar la libreria de Pygame.
+
+
+#1# Lo primero a mi punto de vista es saber la convencion para este tipo de proyecto.
+#1# La comvencion seria algo asi segun la ia:
+
+mi_proyecto/
+├── mi_paquete/
+│   ├── __init__.py
+│   ├── modulo1.py
+│   ├── modulo2.py
+│   └── subpaquete/
+│       ├── __init__.py
+│       └── submodulo1.py
+├── tests/
+│   ├── __init__.py
+│   ├── test_modulo1.py
+│   └── test_modulo2.py
+├── scripts/
+│   └── script_utilitario.py
+├── docs/
+│   └── index.md
+├── .gitignore
+├── requirements.txt
+├── setup.py
+├── README.md
+├── LICENSE
+└── main.py
+
+#1# Creamos un entorno virtual en la carpeta "mi_proyecto" y apuntaremos las librerias que vamos instalando
+en requirements.
+#1# Para crear el entorno virtual .
+*python -m venv .venv | Configurar el entorno.
+
+#1# Para crear el entorno virtual con una version especifica de python:
+*python3.8 -m venv .venv | Crear el entorno virtual nombrado ".venv" con la version de Python deseada.
+*python --version | Con el entorno activo comprovaremos la version de Python.
+
+*.venv/Scripts/Activate | Para activar el entorno.
+*deactivate | Para desactivarlo.
+
+#1# Pero lo voy a realizar con la que tengo actualmente ya que a pasado tiempo desde 
+este tutorial y me quiero enfrentar a problemas o mejoras quien sabe, siempre puedo cambiar.
+Python 3.10.0 pip install pygame | stable version.
+Python 3.11.0 pip install pygame --pre | developmen version.
+Python 3.12.0 pip install pygame | Comprovando version.
+
+#1# Una vez tenemos el entorno virtual creado y los directorios abrimos la terminal en vscode y lo activamos.
+*.venv/Scripts/Activate | Activar entorno (desde la carpeta del proyecto).
+
+#1# El archivo principal se va a llamar main.py que es por donde comenzaremos importando Pygame.
+*pip install pygame | Instalar la ultima version de Pygame.
+*python.exe -m pip install --upgrade pip | Actualizamos pip.
+
+#1# Importamos pygame y desactivamos el entorno reiniciamos vscode damos al play en main para que nos habra una terminal
+de python activamos el entorno y a picar.
+
+#1# Creamos el gitignore y anotamos .venv para el entorno.
+#1# Anotamos en requirements la versiond de python y de pytube.
+
+
+                            #2# Crear pantalla en blanco.
+
+
+#2# Antes de empezar es importante comprender la esctructura del juego.
+#2# Consta de dos partes la parde de variables y objetos.
+#2# La parte de bucle del juego.
+#2# Empezamos a picar...
+
+#2# Para dibujar en la pantalla tenemos posiciones como "x" (Primer arg lateral) "y" (Segundo arg vertical).
+Los dos estandares que enseña son:
+Computer Graphics.
+(0,0) seria la parte superior iz (origen).
+(30,0) Seria arriba un poco a la derecha.
+High Scholl (Sistema de coordenadas cartesiano estandar).
+(0,0) seria la parte inferior iz (origen).
+(30,0) Seria abajo un poco a la derecha.
+En resumen la coordenada "x" tiene un origen distinto en cada estandar, usaremos CG.
+
+#2# Game Loop.
+
+#2# Consta de 3 partes
+#2# 1 Manejo de eventos: Primero devemos verificar cualquier evento que ocurra.
+#2# 2 Actualizar posiciones: Actualizamos las posiciones de los objetos.
+#2# 3 Dibujar objetos: Dibujamos todos los objetos del juego en sus nuevas posiciones.
+
+#2# Los colores en pygame se definen con una tupla R G B (123, 56, 78).
+
+
+                                #3# Crear la comida.
+
+
+#3# Vamos a crear el primer objeto del juego la comida.
+#3# La logica del juego vamos a utilizar una técnica común para desarrollo de juegos.
+#3# Vamos a dividir la pantalla del juego con una cuadricula invisible para el usuario
+esto lo veremos nosotros y nos ayuda con el posicionamiento.
+
+#3# La comida va a ser una celda de la cuadricula y la serpiente una lista de celdas.
+#3# Creamos dos variables con la cantidad y tamaño, cell_size=30*number_of_cells=25 esto aora
+es el tamaño que vamos a dar a nuestra pantalla los arg de la tupla son los siguientes
+(cell_size*number_of_cells, cell_size*number_of_cells) 750 px X 750 px.
+
+#3# Vamos a crear el objeto comida con la clase food:
+#3# Para pintar el objeto en pantalla necesitamos saber la posicion la forma obvia seria x y.
+#3# Pero vamos a hacerlo de una manera mejor a futuro con Vector2 Class.
+#3# Es una esctructura de datos que contiene atributos x y que queremos para nuestra clase.
+
+#3# Pygame dibuja en pantalla de la siguiente manera tenemos 3 conceptos básicos:
+Superficie de visualización (Display Surface), superficie regular (Surface) y rect.
+
+#3# La superficie de visualización es la superficie donde vemos todos los objetos del juego.
+#3# Es como el lienzo en blanco se crea cuando llamamos a la funcion set_mode() y es el objeto
+que usamos cuando llamamos a la función update().
+
+#3# La superficie regular es cuna superficie como la superficie de visualización que podemos
+dibujar sobre ella.Podemos tener tantas superficies regulares como queramos en un juego, a diferencia
+del display_surface que solo podemos tener una por juego, las usaremos para dibujar en la superficie de visualización.
+
+#3# Rect es una area rectangular tiene una posicion y un tamaño.
+Usamos rect para detección de colisiones, fácil manipulacion de objetos y dibujar en una superficie.
+
+#3# Pintaremos el objeto comida con un rect que sera invisible pero nos ayudara a pintar el objeto.
+#3# Ahora usaremos una imagen para nuestro objeto comida con pygame.iamge.load().
+toma una imagen como arg y la pinta como surface de nuestra pantalla la imagen ya la cambiare.
+
+
+                            #4# Creamos la serpiente.
+
+
+#4# Para representar la serpiente tenemos que dibujar algunas de las celdas de la pantalla en color verde oscuro.
+#4# El cuerpo de la serpiente sera una lista de celdas que para empezar tendra 3.
+#4# Pero no almacenamos la celda si no sus coordenadas.
+#4# El primer elemento de la lista será "cabeza" y los restantes la cola.
+#4# Vamos al código a crear la clase snake.
+
+
+                            #5# Mover a la serpiente.
+
+
+#5# Pensemos en el movimiento de la serpiente y lo aremos de manera sencilla.
+#5# Nuestra serpiente es un lista de 3 objetos en principio
+podemos mover el objeto serpiente eliminando la ultima celda de la lista y agregando
+una nueva celda (al principio) esto nos permitira emular el movimiento del objeto 
+a traves de la cuadrícula.
+
+#5# Devido a que usamos objetos Vector2 para representar los segmentos del cuerpo
+de la serpiente, podemos calcular facilmente las coordenadas del segmento que sumamos.
+
+#5# Podemos realizar operaciones matemáticas con ob Vector2.
+#5# For example, tomemos la cabeza de la serpiente como valor de x Vector2(6, 9) podemos
+agregarle otro vector.Por ejemplo si sumamos el Vector2(1, 0) el vector resultante seria (7, 9)
+que es como mover la cabeza a la derecha.
+Vector2(6, 9) + Vector2(-1, 0) = Vector2(5, 9) Mover la cabeza a la izquierda.
+de la misma manera Vector2(6, 9) + Vector2(0, -1) = Vector2(6, 8) Mover la cabeza arriba.
+Vector2(6, 9) + Vector2(0, 1) = Vector2(6, 10) Mover la cabeza abajo.
+#5# Vamos al código.
+
+#5# Crearemos una clase Game para mejor mantenimiento del código para contener la serpiente
+y los objetos comida asi como varios métodos.
+#5# La clase game servirá como contendor para todos los elementos del juego, como la serpiente
+la comida y el estado del juego.
+También contendrá métodos que gestionan la lógica del juego, como actualzar la posicion de
+la serpiente, comprobar si hay colisiones, etc.
+Al centralizar todas las funciones del juego dentro de esta clase, sera mas facil entender,
+matener y ampliar en el futuro.Además, también mejorará la legibilidad del código y reducira riesgo
+de errores al mantener el código relacionado junto en un solo lugar.
+En general, crear una clase Game mejorará enormemente la organización y esctructura de nuestro codigo base.
+
+
+                        #6# Hacer que la serpiente se coma la comida.
+
+
+#6# Pensemos por un momento como se come la comida la serpiente? cuando la cabeza esta en la misma celda.
+Entonces, lo primero que tenemos que verificar es si la celda de la cabeza y comida son la misma coordenada
+al acutalizar el juego.Si esto sucede, la serpiente se comera la comida y tendremos que crear otro objeto comida.
+#6# En la clase game vamos a crear otro metodo vamos al código.
+
+
+                                #7# Haz crecer la serpiente.
+
+
+#7# Hacer crecer la serpiente es un aspetco importante del juego.
+Cuando la serpiente come queremos que aumente de tamaño añadiendo un segmento adicional a su cuerpo.
+El segmento debe agregarse al comienzo del cuerpo de la serpiente, asi no necesitamos actualizar el resto del cuerpo.
+El metodo de actualizacion de la clase serpiente deve saber si tiene que agregar un segmento
+o mover la serpiente vamos al código.
+
+
+                                #8# Control de colisiones.
+
+
+#8# Empezaremos comprovando si la serpiente llega al final de la ventana.
+Lo que tenemos que hacer es comprovar si la cabeza de la serpiente esta fuera de los ejes x y.
+
+
+                                #9# Añadir título y marco.
+
+
+#9# Agregarenis un borde de 75 pixeles alrededor de la ventana del juego y crearemos un
+rectangulo con un verde oscuro para contener el área del juego.
+Para dibujar el rectángulo usaremos la función pygame.draw.rect, que toma cuatro agregarse
+la superficie el color la posicion y el tamaño del borde del rectangulo.
+#9# Para crear un texto necesitamos crear la fuente, la superficie con el texto y luego podemos
+mostrar esa superficie blit del objeto de superficie de visualización.Vamos al código.
+#9# La mayoria del tiempo en pygame vamos a enviar imágenes a desplay_surface tenemos que pasar
+la superficie que queremos mostrar y la ubicación en la pantalla.
+
+
+                                #10# Añadir puntuacion.
+
+
+#10# Añadiremos a la clase game al metodo init un score.
+
+
+                                #11# Añadir Sonidos.
+
+
+#11# Agregaremos sonidos de nuestra carpeta assets/Sounds, tenemos dos en este caso.
+1 para cuando coma la comida, 2 para cuando choquemos.
