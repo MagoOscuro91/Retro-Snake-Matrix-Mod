@@ -4,14 +4,7 @@
   </a>
 </p>
 
-Juego RETRO SNAKE MATRIX MOD código abierto Python BY: MagoOscuro91.
-
-INSTRUCCIONES
-
-El juego está empaquetado con pyinstaller en la carpeta EXE.
-La carpeta game_python_snake_1mod contiene el proyecto del juego.
-Para ejecutar el juego empaquetado, entra en la carpeta EXE/dist/main y ejecuta main.exe.
-Para ejecutar el juego desde VScode abre la carpeta game_python_snake_1mod con VScode y ejecuta main.py.
+Juego Retro Snake Matrix Mod de código abierto Python BY: MagoOscuro91.
 
 DESCRIPCIÓN
 
